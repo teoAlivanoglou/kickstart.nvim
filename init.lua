@@ -601,7 +601,7 @@ require('lazy').setup({
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -624,6 +624,11 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        html = {},
+        emmet_language_server = {
+          filetypes = { 'html', 'css' },
+        },
+        cssls = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -716,6 +721,10 @@ require('lazy').setup({
         lua = { 'stylua' },
         c = { 'clang-format' },
         cpp = { 'clang-format' },
+        html = { 'prettierd' },
+        css = { 'prettierd' },
+        js = { 'prettierd' },
+        python = { 'pyink' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -889,7 +898,7 @@ require('lazy').setup({
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
+      --@diagnostic disable-next-line: duplicate-set-field
       statusline.section_location = function()
         return '%2l:%-2v'
       end
@@ -980,6 +989,10 @@ require('lazy').setup({
     },
   },
 })
+
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
